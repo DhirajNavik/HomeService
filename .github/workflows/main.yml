@@ -18,7 +18,8 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-
+      - name: Create .env
+        run: echo "${{ secrets.ENV_FILE }}" > .env
       - name: Install dependencies
         run: flutter pub get
       - name: Build APK
