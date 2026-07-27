@@ -1,0 +1,9 @@
+{
+    "yaml.disableSchemaDetection": [
+        "file:///d%3A/tasks/fullstack/homeservice/l10n.yaml"
+    ],
+    "yaml.schemas": {
+        "https://www.schemastore.org/pubspec.json": "file:///d%3A/tasks/fullstack/homeservice/pubspec.yaml",
+        "https://www.schemastore.org/github-workflow.json": "file:///d%3A/tasks/fullstack/homeservice/.github/workflows/main.yml"
+    }
+}
