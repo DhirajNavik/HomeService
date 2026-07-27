@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:homeservice/core/components/common_appbar.dart';
 
 class BookingConfirmationView extends StatefulWidget {
   const BookingConfirmationView({super.key});
 
   @override
-  State<BookingConfirmationView> createState() => _BookingConfirmationViewState();
+  State<BookingConfirmationView> createState() =>
+      _BookingConfirmationViewState();
 }
 
 class _BookingConfirmationViewState extends State<BookingConfirmationView>
@@ -22,12 +22,14 @@ class _BookingConfirmationViewState extends State<BookingConfirmationView>
       duration: const Duration(milliseconds: 800),
       vsync: this,
     );
-    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
     _controller.forward();
   }
 
@@ -51,93 +53,13 @@ class _BookingConfirmationViewState extends State<BookingConfirmationView>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey[800],
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Booking Confirmation',
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
-      ),
+      appBar: commonAppBar(title: "Booking Confirmation"),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             children: [
               // Animated success icon – now using your original design
-AnimatedBuilder(
-  animation: _controller,
-  builder: (context, child) {
-    return Transform.scale(
-      scale: _scaleAnimation.value,
-      child: Opacity(
-        opacity: _fadeAnimation.value,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            // Main circular icon
-            Container(
-              width: 130,
-              height: 130,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Colors.green.withOpacity(1),
-                    Colors.green.withOpacity(0.2),
-                  ],
-                ),
-              ),
-              child: Icon(
-                Icons.check,
-                color: Theme.of(context).scaffoldBackgroundColor,
-                size: 90,
-              ),
-            ),
-            // Decorative floating circles (from your original code)
-            Positioned(
-              right: -30,
-              bottom: -50,
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.15),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
-            Positioned(
-              left: -20,
-              top: -50,
-              child: Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.15),
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  },
-),
-              // Animated success icon
               AnimatedBuilder(
                 animation: _controller,
                 builder: (context, child) {
@@ -145,35 +67,66 @@ AnimatedBuilder(
                     scale: _scaleAnimation.value,
                     child: Opacity(
                       opacity: _fadeAnimation.value,
-                      child: Container(
-                        width: 120,
-                        height: 120,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [Colors.green, Colors.lightGreen],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.greenAccent,
-                              blurRadius: 20,
-                              offset: Offset(0, 8),
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          // Main circular icon
+                          Container(
+                            width: 130,
+                            height: 130,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomLeft,
+                                end: Alignment.topRight,
+                                colors: [
+                                  Colors.green.withOpacity(1),
+                                  Colors.green.withOpacity(0.2),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.check_rounded,
-                          color: Colors.white,
-                          size: 72,
-                        ),
+                            child: Icon(
+                              Icons.check,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              size: 90,
+                            ),
+                          ),
+                          // Decorative floating circles (from your original code)
+                          Positioned(
+                            right: -30,
+                            bottom: -50,
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).scaffoldBackgroundColor.withOpacity(0.15),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            left: -20,
+                            top: -50,
+                            child: Container(
+                              width: 120,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).scaffoldBackgroundColor.withOpacity(0.15),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );
                 },
               ),
-              const SizedBox(height: 24),
+           
               // Title
               FadeTransition(
                 opacity: _fadeAnimation,
@@ -191,10 +144,7 @@ AnimatedBuilder(
                 opacity: _fadeAnimation,
                 child: Text(
                   'Your service has been confirmed successfully.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[600],
-                  ),
+                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -327,11 +277,7 @@ class _SuccessIcon extends StatelessWidget {
               colors: [Colors.green, Colors.lightGreen], // Cleaner gradient
             ),
           ),
-          child: Icon(
-            Icons.check,
-            color: backgroundColor,
-            size: 90,
-          ),
+          child: Icon(Icons.check, color: backgroundColor, size: 90),
         ),
         // Decorative floating circles (from original code)
         Positioned(
