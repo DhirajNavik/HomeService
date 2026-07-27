@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homeservice/config/injector/injector_config.dart';
 import 'package:homeservice/core/components/common_appbar.dart';
 import 'package:homeservice/core/extensions/context_extension.dart';
 import 'package:homeservice/core/extensions/padding_extension.dart';
+import 'package:homeservice/core/routes/route_exports.dart';
 import 'package:homeservice/core/utils/dimens.dart';
 import 'package:homeservice/core/utils/sizedBox.dart';
 import 'package:homeservice/features/cart/presentation/bloc/bill/bill_bloc.dart';
@@ -94,7 +94,7 @@ class _CartViewState extends State<CartView> {
             },
           ),
 
-           SliverToBoxAdapter(child: SizeBox.sizeHX20),
+          SliverToBoxAdapter(child: SizeBox.sizeHX20),
         ],
       ),
 
@@ -113,7 +113,17 @@ class _CartViewState extends State<CartView> {
               return state.total;
             },
             builder: (context, value) {
-              return CartBottomBar(total: value);
+              return CartBottomBar(
+                total: value,
+                onTap: () async {
+                  await serviceLocater<GoRouter>().push(
+                    AppRoute.bookingConfirmation.path,
+                  );
+                  AppRouteConf.rootNavigatorKey.currentState?.popUntil(
+                    (route) => route.isFirst,
+                  );
+                },
+              );
             },
           );
         },

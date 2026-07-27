@@ -10,4 +10,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get language => 'English';
+
+  @override
+  String get booking_confirmation => 'Booking Confirmation';
+
+  @override
+  String get service_booked => 'Service Booked!';
+
+  @override
+  String get your_service_has =>
+      'Your service has been confirmed successfully.';
+
+  @override
+  String get my_bookings => 'My Bookings';
+
+  @override
+  String get go_home => 'Go Home';
 }

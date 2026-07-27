@@ -56,13 +56,6 @@ class AppRouteConf {
         pageBuilder: (_, _) => MaterialPage(child: const CartView()),
       ),
 
-      // Booking
-      GoRoute(
-        path: AppRoute.booking.path,
-        name: AppRoute.booking.pathName,
-        pageBuilder: (_, _) => MaterialPage(child: const BookingView()),
-      ),
-
       // Booking Confirmation
       GoRoute(
         path: AppRoute.bookingConfirmation.path,

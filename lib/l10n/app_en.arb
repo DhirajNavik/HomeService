@@ -1,3 +1,10 @@
 {
-  "language":"English"
+  "language":"English",
+
+
+  "booking_confirmation":"Booking Confirmation",
+  "service_booked":"Service Booked!",
+  "your_service_has":"Your service has been confirmed successfully.",
+  "my_bookings":"My Bookings",
+  "go_home":"Go Home"
 }

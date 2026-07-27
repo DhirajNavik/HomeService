@@ -74,7 +74,7 @@ class CategoryGridView extends StatelessWidget {
                 ],
               );
             }),
-            if (true)
+            if (showViewMore)
               ViewMoreCategory(
                 data: categories,
                 size: Dimens.screenWidth / responsiveCount * 0.77,

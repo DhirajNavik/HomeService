@@ -1,6 +1,7 @@
 {
     "yaml.disableSchemaDetection": [
-        "file:///d%3A/tasks/fullstack/homeservice/l10n.yaml"
+        "file:///d%3A/tasks/fullstack/homeservice/l10n.yaml",
+        "file:///d%3A/tasks/fullstack/homeservice/native_splash.yaml"
     ],
     "yaml.schemas": {
         "https://www.schemastore.org/pubspec.json": "file:///d%3A/tasks/fullstack/homeservice/pubspec.yaml",

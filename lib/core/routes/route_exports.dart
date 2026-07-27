@@ -9,5 +9,4 @@ export 'package:flutter/material.dart';
 export 'package:homeservice/features/home/presentation/pages/home_view.dart';
 export 'package:homeservice/features/cart/presentation/pages/cart_view.dart';
 export 'package:homeservice/features/booking/presentation/pages/booking_cnfrm_view.dart';
-export 'package:homeservice/features/booking/presentation/pages/booking_view.dart';
 export 'package:homeservice/features/service/presentation/components/service_card_view.dart';

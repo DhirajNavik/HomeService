@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:homeservice/config/injector/injector_config.dart';
 import 'package:homeservice/core/extensions/context_extension.dart';
 import 'package:homeservice/core/extensions/padding_extension.dart';
+import 'package:homeservice/core/helpers/common_helpers.dart';
 import 'package:homeservice/core/helpers/decoration.dart';
 import 'package:homeservice/core/routes/route_exports.dart';
 import 'package:homeservice/core/utils/app_palettes.dart';
@@ -120,19 +119,15 @@ class PopularServicesCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Stack(
-                        clipBehavior: .none,
-                        alignment: .bottomCenter,
-                        children: [
-                          ClipRRect(
-                            borderRadius: .circular(Dimens.radiusX2),
-                            child: CachedNetworkImage(
-                              imageUrl: service.assets ?? "",
-                              width: 120,
-                              height: 120,
-                            ),
+                      SizedBox(
+                        height: 120,
+                        width: 120,
+                        child: ClipRRect(
+                          borderRadius: .circular(Dimens.radiusX2),
+                          child: CommonHelpers.getCacheNetworkImage(
+                            service.assets ?? "",
                           ),
-                        ],
+                        ),
                       ),
                     ],
                   ),

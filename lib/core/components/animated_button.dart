@@ -11,6 +11,9 @@ class CommonButton extends StatefulWidget {
   final double? height;
   final double? radius;
   final TextStyle? style;
+  final Color? color;
+  final Color? textColor;
+  final Color? borderColor;
 
   const CommonButton({
     this.onTap,
@@ -19,6 +22,9 @@ class CommonButton extends StatefulWidget {
     this.height,
     this.radius,
     this.style,
+    this.color,
+    this.textColor,
+    this.borderColor,
     super.key,
   });
 
@@ -92,18 +98,23 @@ class _CommonButtonState extends State<CommonButton>
             ),
 
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppPalettes.gradientFirstColor,
-              AppPalettes.gradientSecondColor,
-            ],
-            transform: GradientRotation(_gradientController.value * 2 * pi),
-          ),
-          borderRadius: BorderRadius.circular(
-            widget.radius ?? Dimens.buttonRadius,
-          ),
+          color: widget.color,
+          gradient: widget.color != null
+              ? null
+              : LinearGradient(
+                  colors: [
+                    AppPalettes.gradientFirstColor,
+                    AppPalettes.gradientSecondColor,
+                  ],
+                  transform: GradientRotation(
+                    _gradientController.value * 2 * pi,
+                  ),
+                ),
+          borderRadius: .circular(widget.radius ?? Dimens.buttonRadius),
           border: Border.all(
-            color: AppPalettes.whiteColor.withOpacityExt(0.2),
+            color:
+                widget.borderColor ??
+                AppPalettes.whiteColor.withOpacityExt(0.2),
             width: 1.4,
           ),
         ),
@@ -114,8 +125,8 @@ class _CommonButtonState extends State<CommonButton>
             style:
                 widget.style ??
                 context.textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: AppPalettes.whiteColor,
+                  fontWeight: FontWeight.w700,
+                  color:widget.textColor?? AppPalettes.whiteColor,
                 ),
           ),
         ),

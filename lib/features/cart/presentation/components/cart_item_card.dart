@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homeservice/config/injector/injector_config.dart';
 import 'package:homeservice/core/extensions/context_extension.dart';
+import 'package:homeservice/core/helpers/common_helpers.dart';
 import 'package:homeservice/core/helpers/decoration.dart';
 import 'package:homeservice/core/utils/app_palettes.dart';
 import 'package:homeservice/core/utils/dimens.dart';
@@ -93,14 +93,14 @@ class _CartItemCardState extends State<CartItemCard> {
                             spacing: Dimens.gapX1B,
                             children: [
                               Text(
-                                "₹${service?.finalPrice?.round()}",
+                                "₹${(service?.finalPrice ?? 0).round()}",
                                 style: textTheme.headlineMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
                                   height: 0.9,
                                 ),
                               ),
                               Text(
-                                "₹${service?.price?.round()}",
+                                "₹${(service?.price ?? 0).round()}",
                                 style: textTheme.titleMedium?.copyWith(
                                   decoration: TextDecoration.lineThrough,
                                 ),
@@ -154,12 +154,14 @@ class _CartItemCardState extends State<CartItemCard> {
                   ),
                 ),
 
-                ClipRRect(
-                  borderRadius: .circular(Dimens.radiusX2),
-                  child: CachedNetworkImage(
-                    imageUrl: service?.assets ?? "",
-                    width: 120,
-                    height: 120,
+                SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: ClipRRect(
+                    borderRadius: .circular(Dimens.radiusX2),
+                    child: CommonHelpers.getCacheNetworkImage(
+                      service?.assets ?? "",
+                    ),
                   ),
                 ),
               ],

@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:fpdart/fpdart.dart';
 import 'package:homeservice/core/error/exception.dart';
 import 'package:homeservice/core/error/failures.dart';
-import 'package:homeservice/core/extensions/hive_extension.dart';
 import 'package:homeservice/features/cart/data/datasource/cart_local_datasource.dart';
 import 'package:homeservice/features/cart/data/model/cart_hive_model.dart';
 import 'package:homeservice/features/cart/domain/entities/cart_entity.dart';

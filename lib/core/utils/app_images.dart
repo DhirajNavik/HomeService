@@ -11,5 +11,6 @@ class AppImages {
   static String protectionIcon = "$_icons/protection$_png";
   static String starIcon = "$_icons/star$_png";
   static String searchIcon = "$_icons/search$_svg";
+  static String locationIcon = "$_icons/location$_svg";
 
 }

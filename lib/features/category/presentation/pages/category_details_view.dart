@@ -6,7 +6,6 @@ import 'package:homeservice/core/components/animated_button.dart';
 import 'package:homeservice/core/extensions/context_extension.dart';
 import 'package:homeservice/core/extensions/padding_extension.dart';
 import 'package:homeservice/core/routes/app_route_path.dart';
-import 'package:homeservice/core/utils/app_palettes.dart';
 import 'package:homeservice/core/utils/dimens.dart';
 import 'package:homeservice/core/utils/sizedBox.dart';
 import 'package:homeservice/features/cart/domain/entities/cart_entity.dart';

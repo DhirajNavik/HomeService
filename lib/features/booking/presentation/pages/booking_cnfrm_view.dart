@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:homeservice/config/injector/injector_config.dart';
+import 'package:homeservice/core/components/animated_button.dart';
 import 'package:homeservice/core/components/common_appbar.dart';
+import 'package:homeservice/core/extensions/context_extension.dart';
+import 'package:homeservice/core/helpers/decoration.dart';
+import 'package:homeservice/core/routes/route_exports.dart';
+import 'package:homeservice/core/utils/app_palettes.dart';
+import 'package:homeservice/core/utils/dimens.dart';
+import 'package:homeservice/core/utils/sizedBox.dart';
 
 class BookingConfirmationView extends StatefulWidget {
   const BookingConfirmationView({super.key});
@@ -51,260 +60,188 @@ class _BookingConfirmationViewState extends State<BookingConfirmationView>
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = context.textTheme;
+    final localization = context.localizations;
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: commonAppBar(title: "Booking Confirmation"),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-          child: Column(
-            children: [
-              // Animated success icon – now using your original design
-              AnimatedBuilder(
-                animation: _controller,
-                builder: (context, child) {
-                  return Transform.scale(
-                    scale: _scaleAnimation.value,
-                    child: Opacity(
-                      opacity: _fadeAnimation.value,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          // Main circular icon
-                          Container(
-                            width: 130,
-                            height: 130,
+      appBar: commonAppBar(title: localization.booking_confirmation),
+      body: SingleChildScrollView(
+        padding: .symmetric(
+          horizontal: Dimens.horizontalspacing,
+          vertical: Dimens.verticalspacing,
+        ),
+        child: Column(
+          spacing: Dimens.gapX2,
+          children: [
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: _scaleAnimation.value,
+                  child: Opacity(
+                    opacity: _fadeAnimation.value,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          width: Dimens.scaleX15,
+                          height: Dimens.scaleX15,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              colors: [
+                                Colors.green.withOpacityExt(1),
+                                Colors.green.withOpacityExt(0.2),
+                              ],
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.check,
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            size: Dimens.scaleX10,
+                          ),
+                        ),
+
+                        Positioned(
+                          right: -Dimens.scaleX4,
+                          bottom: -Dimens.scaleX4,
+                          child: Container(
+                            width: Dimens.scaleX10,
+                            height: Dimens.scaleX10,
                             decoration: BoxDecoration(
+                              color: context.scaffoldBackgroundColor
+                                  .withOpacityExt(0.15),
                               shape: BoxShape.circle,
-                              gradient: LinearGradient(
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                                colors: [
-                                  Colors.green.withOpacity(1),
-                                  Colors.green.withOpacity(0.2),
-                                ],
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.check,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              size: 90,
                             ),
                           ),
-                          // Decorative floating circles (from your original code)
-                          Positioned(
-                            right: -30,
-                            bottom: -50,
-                            child: Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).scaffoldBackgroundColor.withOpacity(0.15),
-                                shape: BoxShape.circle,
-                              ),
+                        ),
+                        Positioned(
+                          left: -Dimens.scaleX4,
+                          top: -Dimens.scaleX4,
+                          child: Container(
+                            width: Dimens.scaleX10,
+                            height: Dimens.scaleX10,
+                            decoration: BoxDecoration(
+                              color: context.scaffoldBackgroundColor
+                                  .withOpacityExt(0.15),
+                              shape: BoxShape.circle,
                             ),
                           ),
-                          Positioned(
-                            left: -20,
-                            top: -50,
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).scaffoldBackgroundColor.withOpacity(0.15),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-              ),
-           
-              // Title
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: const Text(
-                  'Service Booked!',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
                   ),
-                ),
+                );
+              },
+            ),
+
+            // Title
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: Text(
+                localization.service_booked,
+                style: textTheme.displayMedium?.copyWith(fontWeight: .w700),
               ),
-              const SizedBox(height: 8),
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: Text(
-                  'Your service has been confirmed successfully.',
-                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 32),
-              // Booking details card
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+            ),
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: Row(
+                mainAxisAlignment: .center,
+                children: [
+                  Flexible(
+                    child: Text(
+                      localization.your_service_has,
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: .w600,
+                        color: AppPalettes.textSecondary,
+                      ),
+
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
+                ],
+              ),
+            ),
+            SizeBox.sizeHX2,
+
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: Container(
+                decoration: boxDecorationRoundedWithShadow(
+                  Dimens.radiusX4,
+                  backgroundColor: context.cardColor,
+                ),
+                padding: .all(Dimens.allPaddingX5),
+                child: Column(
+                  spacing: Dimens.gapX3,
+                  children: bookingDetails.entries.map((entry) {
+                    return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: bookingDetails.entries.map((entry) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 100,
-                                child: Text(
-                                  entry.key,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey[700],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  entry.value,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                              ),
-                            ],
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            entry.key,
+                            style: textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w500,
+                              color: AppPalettes.textSecondary,
+                            ),
                           ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: Text(
+                            entry.value,
+                            style: textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList(),
                 ),
               ),
-              const SizedBox(height: 40),
-              // Action buttons
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () {
-                          // Navigate to bookings list
-                        },
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          side: BorderSide(color: Colors.grey[300]!),
-                        ),
-                        child: const Text(
-                          'My Bookings',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Navigate to home
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 2,
-                        ),
-                        child: const Text(
-                          'Go Home',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: .symmetric(
+          horizontal: Dimens.horizontalspacing,
+          vertical: Dimens.verticalspacing,
+        ),
+        child: FadeTransition(
+          opacity: _fadeAnimation,
+          child: Row(
+            spacing: Dimens.gapX4,
+            children: [
+              Expanded(
+                child: CommonButton(
+                  text: localization.my_bookings,
+                  onTap: () => AppRouteConf.rootNavigatorKey.currentState
+                      ?.popUntil((route) => route.isFirst),
+                  radius: Dimens.radiusX4,
+                  borderColor: AppPalettes.primaryColor,
+                  color: AppPalettes.whiteColor,
+                  textColor: AppPalettes.textPrimary,
+                ),
+              ),
+              Expanded(
+                child: CommonButton(
+                  onTap: () => AppRouteConf.rootNavigatorKey.currentState
+                      ?.popUntil((route) => route.isFirst),
+                  text: localization.go_home,
+                  radius: Dimens.radiusX4,
+                  color: AppPalettes.checkColor,
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class _SuccessIcon extends StatelessWidget {
-  const _SuccessIcon();
-
-  @override
-  Widget build(BuildContext context) {
-    final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
-
-    return Stack(
-      clipBehavior: Clip.none, // Allow decorations to overflow
-      children: [
-        // Main circular icon
-        Container(
-          width: 130,
-          height: 130,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle, // <-- Makes it a perfect circle
-            gradient: const LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              colors: [Colors.green, Colors.lightGreen], // Cleaner gradient
-            ),
-          ),
-          child: Icon(Icons.check, color: backgroundColor, size: 90),
-        ),
-        // Decorative floating circles (from original code)
-        Positioned(
-          right: -30,
-          bottom: -50,
-          child: Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: backgroundColor.withOpacity(0.15),
-              shape: BoxShape.circle,
-            ),
-          ),
-        ),
-        Positioned(
-          left: -20,
-          top: -50,
-          child: Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              color: backgroundColor.withOpacity(0.15),
-              shape: BoxShape.circle,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -10,7 +10,7 @@ import 'decoration.dart';
 class CommonHelpers {
   static Widget shimmer({double? radius, Widget? child}) {
     return Shimmer.fromColors(
-      baseColor: AppPalettes.liteGreyColor,
+      baseColor: AppPalettes.shimmerColor,
       highlightColor: AppPalettes.whiteColor,
       child:
           child ??
@@ -123,14 +123,14 @@ class CommonHelpers {
             ? shimmer()
             : Container(
                 alignment: Alignment.center,
-                color: backgroundColor ?? AppPalettes.lightBrownColor,
+                color: backgroundColor ?? AppPalettes.liteGreyColor,
                 child: placeholder,
               );
       },
       errorWidget: (context, error, stackTrace) {
         return Container(
           alignment: Alignment.center,
-          color: backgroundColor ?? AppPalettes.redColor.withOpacityExt(0.8),
+          color: backgroundColor ?? AppPalettes.liteGreyColor,
           child: placeholder ?? SizedBox.shrink(),
         );
       },

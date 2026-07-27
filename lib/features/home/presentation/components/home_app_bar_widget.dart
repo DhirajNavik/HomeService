@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:homeservice/core/extensions/context_extension.dart';
+import 'package:homeservice/core/extensions/padding_extension.dart';
 import 'package:homeservice/core/extensions/responsive_extension.dart';
+import 'package:homeservice/core/helpers/common_helpers.dart';
 import 'package:homeservice/core/utils/app_images.dart';
 import 'package:homeservice/core/utils/app_palettes.dart';
 import 'package:homeservice/core/utils/dimens.dart';
+import 'package:homeservice/features/home/domain/entities/location_entity.dart';
 
 class HomeAppBarWidget extends StatefulWidget {
-  final bool isScrolled;
-  const HomeAppBarWidget({super.key, required this.isScrolled});
+  final LocationEntity? location;
+  const HomeAppBarWidget({super.key, required this.location});
 
   @override
   State<HomeAppBarWidget> createState() => _HomeAppBarWidgetState();
@@ -33,53 +36,69 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
           bottomRight: Radius.circular(Dimens.radiusX8),
         ),
       ),
-      title: AnimatedOpacity(
-        opacity: widget.isScrolled ? 1 : 0,
-        duration: Duration(milliseconds: 60),
-        child: Text("Hello, User!", style: textTheme.headlineSmall),
-      ),
+
       flexibleSpace: FlexibleSpaceBar(
         expandedTitleScale: 1,
         collapseMode: CollapseMode.parallax,
         centerTitle: false,
         titlePadding: EdgeInsets.symmetric(horizontal: Dimens.horPaddingX4),
 
-        background: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        background: Stack(
           children: [
-            Row(
+            Column(
+              crossAxisAlignment: .start,
+              spacing: Dimens.gapX1,
               children: [
-                Spacer(flex: 3),
-                Image.asset(
-                  AppImages.fastIcon,
-                  height: Dimens.scaleX4,
-                  color: AppPalettes.iconColor,
+                Text("Hello, User!", style: textTheme.headlineLarge),
+                Text(
+                  " Welcome Back",
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: AppPalettes.whiteColor,
+                    fontWeight: .w500,
+                    letterSpacing: 1,
+                  ),
                 ),
-                Spacer(flex: 1),
               ],
-            ),
-            Row(
+            ).onlyPadding(left: Dimens.horPaddingX4, top: Dimens.verPaddingX3),
+
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Spacer(flex: 3),
-                Image.asset(
-                  AppImages.allDayIcon,
-                  height: Dimens.scaleX4,
-                  color: AppPalettes.iconColor,
+                Row(
+                  children: [
+                    Spacer(flex: 3),
+                    Image.asset(
+                      AppImages.fastIcon,
+                      height: Dimens.scaleX4,
+                      color: AppPalettes.iconColor,
+                    ),
+                    Spacer(flex: 1),
+                  ],
                 ),
-                Spacer(flex: 2),
-              ],
-            ),
-            Row(
-              children: [
-                Spacer(flex: 5),
-                Image.asset(
-                  AppImages.starIcon,
-                  height: Dimens.scaleX3,
-                  color: AppPalettes.iconColor,
+                Row(
+                  children: [
+                    Spacer(flex: 3),
+                    Image.asset(
+                      AppImages.allDayIcon,
+                      height: Dimens.scaleX4,
+                      color: AppPalettes.iconColor,
+                    ),
+                    Spacer(flex: 2),
+                  ],
                 ),
-                Spacer(flex: 1),
+                Row(
+                  children: [
+                    Spacer(flex: 5),
+                    Image.asset(
+                      AppImages.starIcon,
+                      height: Dimens.scaleX3,
+                      color: AppPalettes.iconColor,
+                    ),
+                    Spacer(flex: 1),
+                  ],
+                ),
               ],
             ),
           ],
@@ -88,35 +107,42 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
           clipBehavior: Clip.none,
           alignment: AlignmentGeometry.centerRight,
           children: [
-            AnimatedOpacity(
-              opacity: widget.isScrolled ? 0 : 1,
-              duration: Duration(milliseconds: 100),
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: Dimens.gapX,
-                    children: [
-                      Text("Hello, User!", style: textTheme.headlineLarge),
-                      Text(
-                        " Welcome Back",
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: AppPalettes.whiteColor,
-                          fontWeight: .w500,
-                          letterSpacing: 1,
-                        ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: Dimens.gapX,
+              children: [
+                Row(
+                  spacing: Dimens.gapX1,
+                  crossAxisAlignment: .end,
+                  children: [
+                    CommonHelpers.buildIcons(
+                      path: AppImages.locationIcon,
+                      iconSize: Dimens.scaleX3,
+                      iconColor: AppPalettes.whiteColor,
+                    ),
+                    Text(
+                      widget.location?.city ?? "Loading...",
+                      style: textTheme.titleMedium?.copyWith(
+                        color: AppPalettes.whiteColor,
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+                Text(
+                  "  ${widget.location?.state??""}",
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: AppPalettes.whiteColor,
+                    fontWeight: .w600,
                   ),
-                ],
+                ),
+              ],
+            ).onlyPadding(bottom: Dimens.horPaddingX4),
+            Padding(
+              padding: EdgeInsetsGeometry.only(
+                top: Dimens.verPaddingX3,
+                right: Dimens.horPaddingX2,
               ),
-            ),
-            AnimatedPadding(
-              duration: Duration(milliseconds: 100),
-              padding: widget.isScrolled
-                  ? EdgeInsetsGeometry.only(top: Dimens.allPaddingX6)
-                  : EdgeInsetsGeometry.zero,
               child: Image.asset(AppImages.userIcon, height: Dimens.scaleX6),
             ),
           ],

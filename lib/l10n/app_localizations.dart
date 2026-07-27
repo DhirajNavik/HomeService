@@ -99,6 +99,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'English'**
   String get language;
+
+  /// No description provided for @booking_confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Confirmation'**
+  String get booking_confirmation;
+
+  /// No description provided for @service_booked.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Booked!'**
+  String get service_booked;
+
+  /// No description provided for @your_service_has.
+  ///
+  /// In en, this message translates to:
+  /// **'Your service has been confirmed successfully.'**
+  String get your_service_has;
+
+  /// No description provided for @my_bookings.
+  ///
+  /// In en, this message translates to:
+  /// **'My Bookings'**
+  String get my_bookings;
+
+  /// No description provided for @go_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Home'**
+  String get go_home;
 }
 
 class _AppLocalizationsDelegate
