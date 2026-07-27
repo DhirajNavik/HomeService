@@ -59,7 +59,7 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
                   ),
                 ),
               ],
-            ).onlyPadding(left: Dimens.horPaddingX4, top: Dimens.verPaddingX3),
+            ).onlyPadding(left: Dimens.horPaddingX4, top: Dimens.verPaddingX5),
 
             Column(
               mainAxisSize: MainAxisSize.max,
